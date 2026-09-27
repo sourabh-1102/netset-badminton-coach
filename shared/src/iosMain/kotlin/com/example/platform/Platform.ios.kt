@@ -7,7 +7,9 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.graphics.ImageBitmap
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.addressOf
-import kotlinx.cinterop.allocArrayOf
+import kotlinx.cinterop.DoubleVar
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.set
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.usePinned
 import kotlinx.cinterop.useContents
@@ -62,6 +64,7 @@ import platform.UIKit.UIImageJPEGRepresentation
 import platform.UIKit.UIImagePNGRepresentation
 import platform.UIKit.UIViewController
 import platform.UIKit.drawAtPoint
+import platform.UIKit.popoverPresentationController
 import platform.UIKit.sizeWithAttributes
 import platform.UniformTypeIdentifiers.UTTypeItem
 import platform.darwin.NSObject
@@ -269,7 +272,12 @@ private class IosPdfCanvas : PdfCanvas {
     private fun stroked(path: UIBezierPath, color: Int, width: Float, dashed: Boolean) {
         path.lineWidth = width.toDouble()
         path.lineJoinStyle = platform.CoreGraphics.CGLineJoin.kCGLineJoinRound
-        if (dashed) memScoped { path.setLineDash(allocArrayOf(5.0, 4.0), count = 2, phase = 0.0) }
+        if (dashed) memScoped {
+            val pattern = allocArray<DoubleVar>(2)
+            pattern[0] = 5.0
+            pattern[1] = 4.0
+            path.setLineDash(pattern, count = 2L, phase = 0.0)
+        }
         uiColor(color).setStroke()
         path.stroke()
     }
