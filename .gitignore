@@ -26,3 +26,4 @@ xcuserdata/
 # Build outputs
 **/build/
 shots/
+release/
