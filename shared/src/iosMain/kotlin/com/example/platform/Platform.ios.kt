@@ -190,6 +190,16 @@ actual fun rememberFilePicker(onPicked: (ByteArray) -> Unit): () -> Unit {
     }
 }
 
+/** Status bar text colour on iOS follows the window's interface style. */
+@Composable
+actual fun SystemBarsAppearance(dark: Boolean) {
+    androidx.compose.runtime.SideEffect {
+        UIApplication.sharedApplication.keyWindow?.overrideUserInterfaceStyle =
+            if (dark) platform.UIKit.UIUserInterfaceStyle.UIUserInterfaceStyleDark
+            else platform.UIKit.UIUserInterfaceStyle.UIUserInterfaceStyleLight
+    }
+}
+
 /** iOS has no system back button; screens provide their own back arrows. */
 @Composable
 actual fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit) = Unit

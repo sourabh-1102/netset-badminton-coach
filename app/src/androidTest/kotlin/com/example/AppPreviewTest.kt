@@ -6,6 +6,7 @@ import android.os.ParcelFileDescriptor
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
@@ -45,7 +46,9 @@ class AppPreviewTest {
 
     private fun clickText(text: String) {
         rule.waitUntil(8000) { rule.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
-        rule.onAllNodesWithText(text)[0].performClick()
+        val node = rule.onAllNodesWithText(text)[0]
+        try { node.performScrollTo() } catch (_: Throwable) {} // only works inside scrollable lists
+        node.performClick()
         rule.waitForIdle()
     }
 
@@ -57,6 +60,9 @@ class AppPreviewTest {
         }
         rule.waitUntil(8000) { rule.onAllNodesWithText("Aarav Patel").fetchSemanticsNodes().isNotEmpty() }
         shot("01_home")
+        rule.onNodeWithContentDescription("Switch to", substring = true).performClick(); shot("01b_home_toggled")
+        rule.onNodeWithContentDescription("Switch to", substring = true).performClick(); shot("01c_home_toggled_back")
+        Thread.sleep(800); shot("01d_home_final")
 
         clickText("Students"); shot("02_students")
         clickText("Aarav Patel"); shot("03_profile_scores")

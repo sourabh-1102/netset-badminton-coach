@@ -3,6 +3,7 @@ package com.example.ui.screens
 import com.example.ui.components.imageExists
 import com.example.ui.components.rememberLocalImagePainter
 import com.example.ui.components.rememberDatePicker
+import com.example.ui.theme.ThemeToggleButton
 import com.example.util.Dates
 import com.example.util.pad2
 import androidx.compose.foundation.BorderStroke
@@ -140,6 +141,8 @@ fun HomeScreen(
                 )
             }
 
+            ThemeToggleButton()
+            Spacer(modifier = Modifier.width(8.dp))
             Surface(
                 onClick = showDatePicker,
                 shape = CircleShape,

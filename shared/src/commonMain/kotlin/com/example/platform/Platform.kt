@@ -36,6 +36,10 @@ expect fun rememberImagePicker(onPicked: (ByteArray) -> Unit): () -> Unit
 @Composable
 expect fun rememberFilePicker(onPicked: (ByteArray) -> Unit): () -> Unit
 
+/** Keeps status/navigation bar icons readable for the app's current theme. */
+@Composable
+expect fun SystemBarsAppearance(dark: Boolean)
+
 @Composable
 expect fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit)
 

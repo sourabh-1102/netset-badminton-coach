@@ -114,6 +114,11 @@ class BadmintonRepository {
         prefs.putString("academy_logo_path", config.logoPath)
     }
 
+    /** "system", "light" or "dark". */
+    fun getThemeMode(): String = prefs.getString("theme_mode", "system")
+
+    fun saveThemeMode(mode: String) = prefs.putString("theme_mode", mode)
+
     /** Saves picked image bytes into app storage and returns the new file path. */
     fun saveImage(bytes: ByteArray, prefix: String): String? {
         val path = "${PlatformFiles.filesDir()}/${prefix}_${Dates.nowMillis()}.jpg"

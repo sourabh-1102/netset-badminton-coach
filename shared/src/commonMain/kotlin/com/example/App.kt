@@ -9,7 +9,12 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import com.example.platform.SystemBarsAppearance
+import com.example.ui.theme.LocalThemeToggle
+import com.example.ui.theme.ThemeToggle
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -33,8 +38,17 @@ fun App(
     viewModel: MainViewModel = viewModel { MainViewModel() },
     startScreen: String? = null
 ) {
-    SmashAssessTheme {
-        MainAppContent(viewModel, startScreen)
+    val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
+    val dark = when (themeMode) {
+        "dark" -> true
+        "light" -> false
+        else -> isSystemInDarkTheme()
+    }
+    SystemBarsAppearance(dark)
+    SmashAssessTheme(darkTheme = dark) {
+        CompositionLocalProvider(LocalThemeToggle provides ThemeToggle(dark) { viewModel.setDarkMode(it) }) {
+            MainAppContent(viewModel, startScreen)
+        }
     }
 }
 

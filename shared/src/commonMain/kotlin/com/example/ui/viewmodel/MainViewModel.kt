@@ -51,6 +51,16 @@ class MainViewModel : ViewModel() {
     private val _academyConfig = MutableStateFlow(repository.getAcademyConfig())
     val academyConfig: StateFlow<AcademyConfig> = _academyConfig.asStateFlow()
 
+    /** "system" follows the phone setting until the coach picks light or dark. */
+    private val _themeMode = MutableStateFlow(repository.getThemeMode())
+    val themeMode: StateFlow<String> = _themeMode.asStateFlow()
+
+    fun setDarkMode(dark: Boolean) {
+        val mode = if (dark) "dark" else "light"
+        repository.saveThemeMode(mode)
+        _themeMode.value = mode
+    }
+
     private val _toastMessage = MutableStateFlow<String?>(null)
     val toastMessage: StateFlow<String?> = _toastMessage.asStateFlow()
 
