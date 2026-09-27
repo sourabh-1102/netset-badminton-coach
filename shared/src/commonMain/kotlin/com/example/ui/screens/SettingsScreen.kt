@@ -171,7 +171,7 @@ fun SettingsScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f)) {
                         if (imageExists(academyConfig.logoPath)) {
                             Image(
                                 painter = rememberLocalImagePainter(academyConfig.logoPath),
@@ -217,7 +217,7 @@ fun SettingsScreen(
                     ) {
                         Icon(Icons.Default.Upload, contentDescription = null, modifier = Modifier.size(16.dp))
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text(if (academyConfig.logoPath.isNotEmpty()) "Change" else "Upload", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        Text(if (academyConfig.logoPath.isNotEmpty()) "Change" else "Upload", fontSize = 12.sp, fontWeight = FontWeight.Bold, maxLines = 1, softWrap = false)
                     }
                 }
             }
