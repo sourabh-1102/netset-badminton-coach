@@ -28,7 +28,7 @@ import com.example.ui.screens.SettingsScreen
 import com.example.ui.screens.SkillManagementScreen
 import com.example.ui.screens.StudentDetailScreen
 import com.example.ui.screens.StudentsScreen
-import com.example.ui.theme.SmashAssessTheme
+import com.example.ui.theme.NetSetTheme
 import com.example.ui.viewmodel.MainViewModel
 import com.example.ui.viewmodel.NavDestination
 
@@ -45,7 +45,7 @@ fun App(
         else -> isSystemInDarkTheme()
     }
     SystemBarsAppearance(dark)
-    SmashAssessTheme(darkTheme = dark) {
+    NetSetTheme(darkTheme = dark) {
         CompositionLocalProvider(LocalThemeToggle provides ThemeToggle(dark) { viewModel.setDarkMode(it) }) {
             MainAppContent(viewModel, startScreen)
         }

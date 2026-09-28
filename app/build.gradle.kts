@@ -8,8 +8,7 @@ android {
   compileSdk = 37
 
   defaultConfig {
-    // Kept unchanged so the update installs over the existing app and keeps its data
-    applicationId = "com.aistudio.badmintoncoach.pzxqkw"
+    applicationId = "com.nexonvate.netset"
     minSdk = 24
     targetSdk = 36
     versionCode = 2
